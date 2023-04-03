@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -5,7 +12,7 @@
 export LC_ALL=en_US.UTF-8
 export ZSH="/Users/jinying.che/.oh-my-zsh"
 export GOPATH="/Users/jinying.che/workspace/go"
-export GOPATH="/usr/local/Cellar/go:$GOPATH"
+# export GOPATH="/usr/local/Cellar/go:$GOPATH"
 export MYSQL="/usr/local/mysql-8.0.17-macos10.14-x86_64/bin"
 export PB="/Users/jinying.che/protoc-3.9.1-osx-x86_64/bin"
 export SCRIPT="/Users/jinying.che/geek/script"
@@ -21,6 +28,8 @@ export SP_UNIX_SOCKET='/Users/jinying.che/run/spex/spex.sock'
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
+# ZSH_THEME="avit"
+# ZSH_THEME="powerlevel10k/powerlevel10k"
 # ZSH_THEME="kardan"
 
 
@@ -115,7 +124,9 @@ source $ZSH/oh-my-zsh.sh
 alias ll="ls -all"
 alias gol="/usr/local/bin/goland"
 alias cl="clear"
-alias spinit="ssh -vvvCNL ~/run/spex/spex.sock:/run/spex/spex.sock -o StreamLocalBindUnlink=yes shopee-spex-test-server"
+alias vim="nvim"
+alias spinit="socat -d -d -d UNIX-LISTEN:/Users/jinying.che/run/spex/spex.sock,reuseaddr,fork TCP:agent-tcp.spex.test.shopee.io:9299"
+# alias python="/usr/local/bin/python3"
 
 ## Set iTerm title to show current directory
 #if [ $ITERM_SESSION_ID ]; then
@@ -123,3 +134,20 @@ alias spinit="ssh -vvvCNL ~/run/spex/spex.sock:/run/spex/spex.sock -o StreamLoca
 #fi
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+function proxy-off(){
+    unset http_proxy
+    unset https_proxy
+    echo "proxy off"
+}
+
+function proxy-on() {
+    export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
+    export http_proxy="socks5://127.0.0.1:1081"
+    export https_proxy=$http_proxy
+    echo "proxy on: $http_proxy"
+}
+
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
