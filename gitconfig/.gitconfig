@@ -1,0 +1,6 @@
+[includeIf "gitdir:~/workspace/garena.com/"]
+	path = ~/.gitconfig-garena
+
+[includeIf "gitdir:~/workspace/github.com/"]
+	path = ~/.gitconfig-github
+ 
