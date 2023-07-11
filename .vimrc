@@ -1,5 +1,5 @@
 call plug#begin()
-Plug 'fatih/vim-go', {  'tag': 'v1.25', 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'rakr/vim-one' "scheme color
 Plug 'morhetz/gruvbox' "scheme color
 Plug 'joshdick/onedark.vim' "scheme color
@@ -115,6 +115,7 @@ let g:ale_linters_ignore = {'go': ['golint']}
 set omnifunc=ale#completion#OmniFunc
 
 
+" use lsp in coc.nvim instead
 "nmap <C-i> :GoImplements<CR>
 "nmap <C-u> :GoReferrers<CR>
 
@@ -123,6 +124,10 @@ nmap <C-l> :TagbarToggle<CR>
 nmap <C-n> :NERDTree<CR>
 nmap <C-g> :Git blame<CR>
 nmap <C-q> :q<CR>
+
+" copy the current relative file path 
+" https://stackoverflow.com/questions/916875/yank-file-name-path-of-current-buffer-in-vim
+nmap cp :let @+ = expand("%")<cr>
 
 " https://github.com/junegunn/fzf.vim/issues/121#issuecomment-575922206
 " use coc list instead
@@ -153,6 +158,8 @@ set updatetime=300
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved
 set signcolumn=yes
+
+set tagfunc=CocTagFunc
 
 " Use tab for trigger completion with characters ahead and navigate
 " NOTE: There's always complete item selected by default, you may want to enable
@@ -188,7 +195,7 @@ nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation
-nmap <silent> <C-]> <Plug>(coc-definition)
+nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
@@ -303,3 +310,8 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 nnoremap <silent><nowait> <space>l  :<C-u>CocList files<CR>
 " Keyword fuzzy finder (similiar with ripgrep)
 nnoremap <silent><nowait> <space>f  :<C-u>CocList grep<CR>
+
+" go tags
+autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
+autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
+autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
