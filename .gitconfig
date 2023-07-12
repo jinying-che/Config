@@ -4,3 +4,7 @@
 [includeIf "gitdir:~/workspace/github.com/"]
 	path = ~/.gitconfig-github
  
+[url "gitlab@git.garena.com:"]
+   insteadOf = https://git.garena.com/
+[pull]
+	rebase = false
