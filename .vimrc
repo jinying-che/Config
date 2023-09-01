@@ -3,6 +3,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'rakr/vim-one' "scheme color
 Plug 'morhetz/gruvbox' "scheme color
 Plug 'joshdick/onedark.vim' "scheme color
+Plug 'projekt0n/github-nvim-theme'
 Plug 'dracula/vim', { 'as': 'dracula' }
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -73,11 +74,12 @@ let &t_SR = "\<Esc>]50;CursorShape=1\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7" "box in normal mode
 
 "colorscheme
-colorscheme onedark
+"colorscheme onedark
 "colorscheme gruvbox
 "colorscheme dracula
 "colorscheme one
 "set background=dark
+colorscheme github_dark_dimmed
 
 "golang vim-go
 let g:go_highlight_types = 1
@@ -315,3 +317,4 @@ nnoremap <silent><nowait> <space>f  :<C-u>CocList grep<CR>
 autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
 autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
 autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
+
