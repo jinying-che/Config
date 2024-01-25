@@ -6,10 +6,22 @@ export ZSH="$HOME/.oh-my-zsh"
 export SCRIPT="/Users/jinying.che/workspace/github.com/Geript"
 export PATH=$PATH:$SCRIPT
 export PATH=$PATH:$(go env GOPATH)/bin
+export Cargo="/Users/jinying.che/.cargo/bin"
+export PATH=$PATH:$Cargo
 export GOPATH=$(go env GOPATH)
 export GO111MODULE=on
 export GOPRIVATE=git.garena.com
-export SP_UNIX_SOCKET='/Users/jinying.che/run/spex/spex.sock' 
+export SP_UNIX_SOCKET='/tmp/spex.sock'
+export DOCKER_HOST=unix:///Users/jinying.che/.local/share/containers/podman/machine/qemu/podman.sock
+
+# for catppuccin theme
+# https://github.com/catppuccin/fzf 
+# export FZF_DEFAULT_OPTS=" \
+# --color=bg+:#ccd0da,bg:#eff1f5,spinner:#dc8a78,hl:#d20f39 \
+# --color=fg:#4c4f69,header:#d20f39,info:#8839ef,pointer:#dc8a78 \
+# --color=marker:#dc8a78,fg+:#4c4f69,prompt:#8839ef,hl+:#d20f39"
+
+# source ~/.zsh/catppuccin_latte-zsh-syntax-highlighting.zsh
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -108,3 +120,20 @@ alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vim="nvim"
 alias ll="ls -all"
+alias rmspkit="rm $GOPATH/bin/spkit"
+
+function ospkit() {
+	go install -v git.garena.com/tai.le/spkit/cmd/spkit@latest
+}
+
+function nspkit() {
+	export platform="$(uname -s| tr '[:upper:]' '[:lower:]')"
+	wget "https://spkit.shopee.io/spkit/stable/spkit-$platform" \
+		-O "$GOPATH/bin/spkit" &&
+	chmod a+x "$GOPATH/bin/spkit"
+}
+
+alias smcstock="smc toc 10.192.9.150"
+alias spex_tunnel="socat -d -d -d UNIX-LISTEN:/tmp/spex.sock,reuseaddr,fork TCP:agent-tcp.spex.test.shopee.io:9299"
+autoload -U compinit; compinit
+alias docker="podman"
